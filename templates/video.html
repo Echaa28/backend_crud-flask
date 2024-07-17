@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Bisindo Detection</title>
+    <link rel="stylesheet" href="../static/src/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 800px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .justify {
+        justify-content: center;
+    }
+
+    .align {
+        align-items: center;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    #videoSection {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    #canvasVideo img {
+        border-radius: 8px;
+        width: 100%;
+        height: auto;
+    }
+
+    .dropdownKecamatan select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #fff;
+        font-size: 16px;
+    }
+
+    .dropdownKecamatan button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .dropdownKecamatan button:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+        .card {
+            padding: 15px;
+        }
+
+        .btn, .dropdownKecamatan button {
+            padding: 10px 0;
+        }
+
+        h2 {
+            font-size: 1.2em;
+        }
+    }
+</style>
+
+<body>
+
+    <main id="content">
+        <!-- Card -->
+        <div class="card column"> 
+            <!-- Row -->
+            <div class="row justify bottom">
+                <!-- Box XL -->
+                <div class="boxXL triple fiturBox" id="boxForm">
+    
+                    <!-- Dropdown Jenis Kelamin -->
+                    <div class="dropdownKecamatan">
+                        <div class="column justify align">
+                            <h2>Pilih Jenis Kelamin</h2>
+                            <select id="gender" name="gender">
+                                <option value="" disabled selected>Pilih jenis kelamin...</option>
+                                <option value="male">Laki-laki</option>
+                                <option value="female">Perempuan</option>
+                            </select>
+                            <button class="btn" onclick="startVideo()">Mulai Deteksi</button>
+                        </div>
+                    </div>
+                    <!-- Batas Dropdown Jenis Kelamin -->
+    
+                    <!-- Camera -->
+                    <div class="formCamera" id="videoSection" style="display: none;">
+                        <div class="column justify align">
+                            <h2>Live Camera</h2>
+                            <div class="visible" id="canvasVideo">
+                                <img src="" id="videoFeed">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Batas Camera -->
+                </div>
+                <!-- Batas Box XL -->
+            </div>
+            <!-- Batas Row -->
+        </div>
+        <!-- Batas Card -->
+    </main>
+    
+    <script>
+        function startVideo() {
+            var gender = document.getElementById('gender').value;
+            if (gender) {
+                var videoSection = document.getElementById('videoSection');
+                var videoFeed = document.getElementById('videoFeed');
+                videoFeed.src = '/video_feed?gender=' + encodeURIComponent(gender);
+                videoSection.style.display = 'block';
+            } else {
+                alert('Silakan pilih jenis kelamin terlebih dahulu.');
+            }
+        }
+    </script>
+
+</body>
+</html>
